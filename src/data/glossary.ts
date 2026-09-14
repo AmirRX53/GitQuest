@@ -23,4 +23,10 @@ export const glossaryTerms: GlossaryTerm[] = [
   { term: 'Origin', definition: 'The conventional name of the default remote — where you cloned from or will push to.', category: 'GitHub' },
   { term: 'CI (Continuous Integration)', definition: 'Automatically building and testing every change — on GitHub, via Actions workflows.', category: 'GitHub' },
   { term: 'Stash', definition: 'A shelf for uncommitted work. git stash push stores it; git stash pop restores it.', category: 'Core' },
+  { term: 'Signed commit', definition: 'A commit cryptographically signed (SSH or GPG) so GitHub can show it as Verified and rulesets can require it.', category: 'GitHub' },
+  { term: 'Ruleset', definition: 'GitHub’s successor to branch protection rules: required reviews, status checks, and blocked force-pushes enforced on a branch or tag pattern.', category: 'GitHub' },
+  { term: 'CODEOWNERS', definition: 'A file in .github/CODEOWNERS that auto-requests reviewers per path (e.g. /src/payments/ @payments-team).', category: 'GitHub' },
+  { term: 'GitHub CLI (gh)', definition: 'The official command-line tool for GitHub: gh pr create, gh issue list, gh pr checks, etc.', category: 'GitHub' },
+  { term: '--force-with-lease', definition: 'Safer force-push: aborts if the remote branch moved since you last fetched, preventing accidental overwrites.', category: 'Core' },
+  { term: 'rerere', definition: '“Reuse recorded resolution” — Git remembers how you resolved a conflict and reapplies it when the same conflict reappears.', category: 'Core' },
 ]

@@ -77,6 +77,32 @@ cat ~/.ssh/id_ed25519.pub
                 body: 'Only ever upload the `.pub` file. If a private key leaks, remove it from GitHub immediately and generate a fresh pair.',
               },
             },
+            {
+              kind: 'heading',
+              text: 'Sign your commits (SSH, no GPG required)',
+            },
+            {
+              kind: 'prose',
+              text: 'GitHub can show a **Verified** badge on commits you signed, proving they came from you and not an impersonator. Since 2022 Git supports **SSH signing** — you can reuse the same ed25519 key you just created, no GPG setup needed.',
+            },
+            {
+              kind: 'code',
+              lang: 'bash',
+              title: 'sign with your SSH key',
+              code: `git config --global gpg.format ssh
+git config --global user.signingkey ~/.ssh/id_ed25519.pub
+git config --global commit.gpgsign true
+# add the same .pub key under GitHub → Settings → SSH and GPG keys → “Signing key”
+git commit -m "feat: verified commit"   # now shows Verified on GitHub`,
+            },
+            {
+              kind: 'callout',
+              callout: {
+                kind: 'tip',
+                title: 'Why this matters',
+                body: 'Without signing, anyone can craft a commit with your name and email. Teams that require verified commits (branch ruleset → “Require signed commits”) block unverified pushes entirely.',
+              },
+            },
           ],
         },
       ],
@@ -152,6 +178,31 @@ cat ~/.ssh/id_ed25519.pub
                 body: 'Read the diff once before requesting review. You will catch half the comments yourself — and reviewers will trust your PRs more.',
               },
             },
+            {
+              kind: 'heading',
+              text: 'Branch protection & rulesets',
+            },
+            {
+              kind: 'prose',
+              text: 'On GitHub, protect `main` with a **ruleset** (Settings → Rules → Rulesets, which has replaced classic branch protection). Typical rules: require a PR, require at least one approval, require status checks (CI must pass), block force pushes, and optionally require signed commits. A `CODEOWNERS` file (`/.github/CODEOWNERS`) auto-requests the right reviewers per path.',
+            },
+            {
+              kind: 'code',
+              lang: 'bash',
+              title: '.github/CODEOWNERS',
+              code: `# .github/CODEOWNERS — request review from the right team
+*              @octocat/docs-team
+/src/payments/  @octocat/payments-team
+*.yml           @octocat/devops-team`,
+            },
+            {
+              kind: 'callout',
+              callout: {
+                kind: 'best-practice',
+                title: 'Small PRs, fast reviews',
+                body: 'Keep PRs under ~300 lines and focused on one concern. Smaller PRs get reviewed faster, catch more bugs, and are easier to revert. Draft PRs let CI run early without requesting review.',
+              },
+            },
           ],
         },
       ],
@@ -162,7 +213,7 @@ cat ~/.ssh/id_ed25519.pub
       minutes: 6,
       summary: 'Where work is discussed, triaged and tracked.',
       tryIt: [],
-      links: [{ to: '/track/github/gh-actions', label: 'Next: GitHub Actions' }],
+      links: [{ to: '/track/github/gh-cli', label: 'Next: GitHub CLI' }],
       sections: [
         {
           id: 'issues',
@@ -179,6 +230,50 @@ cat ~/.ssh/id_ed25519.pub
                 title: 'One issue, one concern',
                 body: '“Refactor everything” is not an issue. Split until each is discussable, testable and closeable in a single PR.',
               },
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: 'gh-cli',
+      title: 'GitHub CLI (gh)',
+      minutes: 7,
+      summary: 'Do GitHub without leaving the terminal: create PRs, check CI, and manage issues with gh.',
+      tryIt: [],
+      links: [{ to: '/track/github/gh-actions', label: 'Next: GitHub Actions' }],
+      sections: [
+        {
+          id: 'gh-cli-intro',
+          title: 'gh — GitHub in the terminal',
+          blocks: [
+            {
+              kind: 'prose',
+              text: '**GitHub CLI (`gh`)** is the official command-line companion to `git`. Where `git` manages snapshots and branches locally, `gh` manages PRs, issues, and workflow runs on GitHub — without opening a browser.',
+            },
+            {
+              kind: 'code',
+              lang: 'bash',
+              title: 'everyday gh commands',
+              code: `gh auth login                    # one-time browser login (SSH or HTTPS)
+gh repo view --web              # open current repo on GitHub
+gh pr create --fill             # create a PR from current branch
+gh pr view --web                # open your PR in browser
+gh pr checks                    # see CI status without leaving the shell
+gh issue create --title "Bug: ..." --body "Steps to reproduce..."
+gh issue list --search "assignee:@me state:open"`,
+            },
+            {
+              kind: 'callout',
+              callout: {
+                kind: 'tip',
+                title: 'The combo to remember',
+                body: '`git switch -c feature/x` → commit → `git push -u origin feature/x` → `gh pr create --fill` is the fastest GitHub Flow loop. Add `gh pr merge --squash --delete-branch` to finish without touching the web UI.',
+              },
+            },
+            {
+              kind: 'prose',
+              text: 'Install via the [official instructions](https://cli.github.com) (winget, brew, apt). Run `gh --help` — almost every GitHub concept (repo, pr, issue, release, workflow run) has a subcommand.',
             },
           ],
         },

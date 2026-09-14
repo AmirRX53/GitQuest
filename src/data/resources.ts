@@ -66,6 +66,24 @@ export const resources: Resource[] = [
     url: 'https://semver.org',
     kind: 'docs',
   },
+  {
+    title: 'GitHub CLI manual',
+    description: 'Reference for gh — pull requests, issues, and workflow runs from the terminal.',
+    url: 'https://cli.github.com/manual/',
+    kind: 'docs',
+  },
+  {
+    title: 'About commit signature verification',
+    description: 'GitHub Docs: GPG / SSH / S/MIME signing and the Verified badge.',
+    url: 'https://docs.github.com/en/authentication/managing-commit-signature-verification/about-commit-signature-verification',
+    kind: 'docs',
+  },
+  {
+    title: 'About protected branches & rulesets',
+    description: 'How rulesets replace classic branch protection to require PRs, checks, and signed commits.',
+    url: 'https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches',
+    kind: 'docs',
+  },
 ]
 
 export const resourceKindLabels: Record<Resource['kind'], string> = {

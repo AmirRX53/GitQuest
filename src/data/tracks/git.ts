@@ -348,6 +348,22 @@ git push                  # upload your commits`,
                 body: '`! [rejected] ... fetch first` means the remote has commits you lack. `git pull`, resolve anything, then push again. Never force-push shared branches (`--force` rewrites history others are standing on).',
               },
             },
+            {
+              kind: 'callout',
+              callout: {
+                kind: 'best-practice',
+                title: 'If you must force-push, lease it',
+                body: 'After a `rebase` on your own feature branch you may need to update the remote. Prefer `git push --force-with-lease` over `--force` — it aborts if someone else pushed in the meantime, so you never silently overwrite their work. Even better: `git config --global alias.pfl "push --force-with-lease"` and make it the default habit.',
+              },
+            },
+            {
+              kind: 'callout',
+              callout: {
+                kind: 'tip',
+                title: 'Pull without the bubble',
+                body: 'Bare `git pull` creates a merge commit when your branch diverged. Many teams prefer `git pull --rebase` (replay your commits on top of the fetched branch) to keep history linear. Set a default with `git config --global pull.rebase false|true|merges` or just prefer `git fetch` + explicit `git rebase origin/main`.',
+              },
+            },
           ],
         },
       ],

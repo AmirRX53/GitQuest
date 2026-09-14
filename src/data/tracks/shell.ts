@@ -41,6 +41,14 @@ export const shellTrack: Track = {
               },
             },
             {
+              kind: 'callout',
+              callout: {
+                kind: 'warning',
+                title: 'Line endings on Windows',
+                body: 'Windows and Unix use different line endings (CRLF vs LF). Git can normalize this: `git config --global core.autocrlf true` on Windows converts to CRLF in your working files but stores LF in the repo. macOS/Linux users should use `input`. Set it once and forget it — mismatched endings show up as phantom diffs.',
+              },
+            },
+            {
               kind: 'heading',
               text: 'Anatomy of the prompt',
             },
@@ -208,6 +216,24 @@ export const shellTrack: Track = {
                 title: 'Undo safety net',
                 body: 'This is exactly why Git exists: once a folder is a repository, committed files survive any rm. Version control turns “careful” into “carefree”.',
               },
+            },
+            {
+              kind: 'heading',
+              text: 'A note on permissions',
+            },
+            {
+              kind: 'prose',
+              text: 'On Unix-like shells (including Git Bash) every file has permissions — who can read, write, or execute it. `ls -l` shows them as `rwx` triplets. You rarely need `chmod` day-to-day, but one case matters for Git: executable scripts (hooks, shell scripts) need `chmod +x script.sh` or Git will track them as non-executable. Run `ls -l` after `git clone` if a script refuses to run.',
+            },
+            {
+              kind: 'code',
+              lang: 'bash',
+              title: 'permissions at a glance',
+              code: `ls -l script.sh
+# -rw-r--r-- 1 you 4096 Apr  1 09:00 script.sh  → not executable
+chmod +x script.sh
+ls -l script.sh
+# -rwxr-xr-x 1 you 4096 Apr  1 09:00 script.sh  → now executable`,
             },
           ],
         },
