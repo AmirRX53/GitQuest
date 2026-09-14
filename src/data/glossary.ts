@@ -1,0 +1,26 @@
+import type { GlossaryTerm } from '../types'
+
+export const glossaryTerms: GlossaryTerm[] = [
+  { term: 'Repository (repo)', definition: 'A project folder whose entire history is stored in the hidden .git directory. Can be local, or hosted on GitHub.', category: 'Core' },
+  { term: 'Commit', definition: 'An immutable snapshot of the staged files, with author, timestamp, message, and a pointer to its parent commit.', category: 'Core' },
+  { term: 'Branch', definition: 'A movable pointer to a commit. Branching is instant and cheap in Git — do it constantly.', category: 'Core' },
+  { term: 'HEAD', definition: 'A pointer to the commit you have checked out — normally “the tip of the current branch”.', category: 'Core' },
+  { term: 'Staging area (index)', definition: 'The draft of your next commit. git add builds it; git commit records it.', category: 'Core' },
+  { term: 'Working directory', definition: 'The files you actually see and edit. Compare with git diff.', category: 'Core' },
+  { term: 'SHA / hash', definition: 'The unique id of a commit (e.g. a1b2c3d…). Short prefixes are enough to reference it.', category: 'Core' },
+  { term: 'Clone', definition: 'A full local copy of a remote repository, including all history.', category: 'Core' },
+  { term: 'Fork', definition: 'A GitHub-hosted copy of someone else’s repository, under your account. The standard starting point for contributing to projects you don’t own.', category: 'GitHub' },
+  { term: 'Remote', definition: 'A bookmark to another clone of the repo, conventionally named origin for the one you cloned from.', category: 'GitHub' },
+  { term: 'Pull request (PR)', definition: 'A GitHub proposal to merge one branch into another, with review, discussion and CI checks attached.', category: 'GitHub' },
+  { term: 'Upstream', definition: 'The branch a local branch tracks (e.g. origin/main) — bare git push/pull use it. Also the name for the original repo of a fork.', category: 'GitHub' },
+  { term: 'Merge', definition: 'Combining two lines of development. Git merges automatically unless the same lines changed on both sides.', category: 'Core' },
+  { term: 'Conflict', definition: 'Git’s pause when two branches edited the same lines. Markers (<<<<<<<, =======, >>>>>>>) show both versions; you pick the final text.', category: 'Core' },
+  { term: 'Rebase', definition: 'Replaying your commits on top of another branch for a linear history. Rule: only unpushed/shared-private commits.', category: 'Core' },
+  { term: 'Detached HEAD', definition: 'The state of having checked out a commit rather than a branch. New commits here are easy to lose.', category: 'Core' },
+  { term: 'Fast-forward', definition: 'A merge where the target branch is directly ahead — Git just moves the pointer, no merge commit needed.', category: 'Core' },
+  { term: '.gitignore', definition: 'A pattern file listing paths Git should never track (dependencies, builds, secrets).', category: 'Core' },
+  { term: 'Tag', definition: 'A named pointer to a commit, used for releases (v1.0.0). Annotated tags carry a message and author.', category: 'Core' },
+  { term: 'Origin', definition: 'The conventional name of the default remote — where you cloned from or will push to.', category: 'GitHub' },
+  { term: 'CI (Continuous Integration)', definition: 'Automatically building and testing every change — on GitHub, via Actions workflows.', category: 'GitHub' },
+  { term: 'Stash', definition: 'A shelf for uncommitted work. git stash push stores it; git stash pop restores it.', category: 'Core' },
+]

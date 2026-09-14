@@ -1,0 +1,108 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+@custom-variant light (&:where(.light, .light *));
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "Cascadia Code", monospace;
+
+  --color-accent-50: #f5f3ff;
+  --color-accent-100: #ede9fe;
+  --color-accent-300: #c4b5fd;
+  --color-accent-400: #a78bfa;
+  --color-accent-500: #8b5cf6;
+  --color-accent-600: #7c3aed;
+  --color-accent-700: #6d28d9;
+
+  --animate-fade-up: fade-up 0.5s ease-out both;
+  --animate-pulse-soft: pulse-soft 2.2s ease-in-out infinite;
+  --animate-page-in: page-in 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+  --animate-item-in: item-in 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+
+  @keyframes page-in {
+    from {
+      opacity: 0;
+      transform: translateY(8px) scale(0.995);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @keyframes item-in {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes pulse-soft {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.35;
+    }
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-zinc-50 font-sans text-zinc-900 antialiased light:bg-neutral-50;
+  }
+
+  .dark body {
+    @apply bg-zinc-950 text-zinc-100;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  ::selection {
+    @apply bg-accent-500/30;
+  }
+
+  ::-webkit-scrollbar {
+    @apply h-2.5 w-2.5;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-zinc-300 light:bg-zinc-300;
+  }
+
+  .dark ::-webkit-scrollbar-thumb {
+    @apply bg-zinc-700;
+  }
+}
