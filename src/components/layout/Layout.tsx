@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import type { JSX, ReactNode } from 'react'
 import { NavLink, Link } from 'react-router-dom'
 import { useProgress } from '../../lib/progress'
@@ -14,6 +14,33 @@ const navItems = [
   { to: '/glossary', label: 'Glossary', icon: 'book' as const },
   { to: '/resources', label: 'Resources', icon: 'external' as const },
 ]
+
+function ScrollToTop(): JSX.Element | null {
+  const [visible, setVisible] = useState(false)
+  useEffect(() => {
+    const onScroll = () => setVisible(window.scrollY > 400)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+  return (
+    <button
+      type="button"
+      aria-label="Scroll to top"
+      aria-hidden={!visible}
+      onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+      className={cx(
+        'fixed bottom-6 right-6 z-40 inline-flex h-10 w-10 items-center justify-center rounded-full',
+        'bg-accent-600 text-white shadow-md shadow-accent-600/25 ring-1 ring-accent-600/20',
+        'transition-all duration-200 hover:bg-accent-700 hover:shadow-lg hover:shadow-accent-600/20',
+        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-zinc-950',
+        visible ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-2 opacity-0',
+      )}
+    >
+      <Icon name="arrowUp" className="h-5 w-5" />
+    </button>
+  )
+}
 
 export function Layout({ children }: { children: ReactNode }): JSX.Element {
   const dark = useProgress((s) => s.dark)
@@ -94,6 +121,7 @@ export function Layout({ children }: { children: ReactNode }): JSX.Element {
           <p className="text-xs">Progress lives only in your browser. Nothing to break, nothing to lose.</p>
         </div>
       </footer>
+      <ScrollToTop />
     </div>
   )
 }

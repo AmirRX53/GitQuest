@@ -119,6 +119,7 @@ const paths: Record<string, JSX.Element> = {
   home: <path d="M3 11l9-8 9 8M5 9.5V21h14V9.5" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" />,
   trash: <path d="M4 7h16M9 7V5a1 1 0 011-1h4a1 1 0 011 1v2M6 7l1 13h10l1-13M10 11v6M14 11v6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" />,
   undo: <path d="M9 14L4 9l5-5M4 9h10a6 6 0 016 6v1" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" />,
+  arrowUp: <path d="M12 19V5M12 5L6 11M12 5l6 6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" />,
 }
 
 export type IconName = keyof typeof paths
