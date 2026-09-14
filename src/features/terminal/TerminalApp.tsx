@@ -154,7 +154,9 @@ export function TerminalApp({ scenario, onMilestone }: { scenario: Scenario | nu
 
   return (
     <div className="grid gap-4 lg:grid-cols-[1fr_320px]">
-      <TerminalWindow title={scenario ? `sandbox — ${scenario.title}` : 'sandbox — free playground'}>
+      <div className="relative">
+        <div aria-hidden className="pointer-events-none absolute -inset-2 -z-10 rounded-[18px] bg-gradient-to-br from-accent-500/15 via-violet-500/10 to-transparent blur-xl opacity-50 dark:opacity-70" />
+        <TerminalWindow title={scenario ? `sandbox — ${scenario.title}` : 'sandbox — free playground'}>
         <div
           ref={scrollRef}
           className="h-[420px] cursor-text space-y-1 overflow-y-auto pr-1"
@@ -164,7 +166,7 @@ export function TerminalApp({ scenario, onMilestone }: { scenario: Scenario | nu
         >
           {history.length === 0 ? (
             <p className="font-mono text-xs text-zinc-500">
-              Welcome to the GitQuest sandbox. Type <span className="text-accent-300">help</span> to list commands.
+              Welcome to the GitQuest sandbox. Type <span className="text-accent-300 drop-shadow-[0_0_10px_rgba(167,139,250,0.45)]">help</span> to list commands.
               {scenario ? ' Complete the goal on the right.' : ' Free explore mode — nothing can break.'}
             </p>
           ) : null}
@@ -173,7 +175,7 @@ export function TerminalApp({ scenario, onMilestone }: { scenario: Scenario | nu
               {entry.cmd !== '' ? (
                 <div className="flex items-start gap-2">
                   <span className="shrink-0 font-mono text-sm">
-                    <span className="text-emerald-400">{promptFor(state)}</span>
+                    <span className="text-emerald-400 drop-shadow-[0_0_8px_rgba(52,211,153,0.3)]">{promptFor(state)}</span>
                     <span className="text-zinc-500"> $ </span>
                   </span>
                   <span className="font-mono text-sm text-zinc-100">{entry.cmd}</span>
@@ -191,7 +193,7 @@ export function TerminalApp({ scenario, onMilestone }: { scenario: Scenario | nu
           {/* Active input line */}
           <div className="flex items-center gap-2">
             <span className="shrink-0 font-mono text-sm">
-              <span className="text-emerald-400">{promptFor(state)}</span>
+              <span className="text-emerald-400 drop-shadow-[0_0_8px_rgba(52,211,153,0.3)]">{promptFor(state)}</span>
               <span className="text-zinc-500"> $ </span>
             </span>
             <input
@@ -206,12 +208,13 @@ export function TerminalApp({ scenario, onMilestone }: { scenario: Scenario | nu
             />
           </div>
         </div>
-      </TerminalWindow>
+        </TerminalWindow>
+      </div>
 
       <aside className="space-y-4">
         {scenario ? (
           <>
-            <div className="rounded-2xl border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
+            <div className="glow-card rounded-2xl border border-zinc-200 bg-white p-4 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
               <p className="text-xs font-semibold uppercase tracking-wider text-accent-500">
                 Goal {stepIndex + 1} of {steps.length}
               </p>
@@ -261,7 +264,7 @@ export function TerminalApp({ scenario, onMilestone }: { scenario: Scenario | nu
             )}
           </>
         ) : null}
-        <div className="rounded-2xl border border-zinc-200 bg-white p-4 text-xs text-zinc-500 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-400">
+        <div className="glow-card rounded-2xl border border-zinc-200 bg-white p-4 text-xs text-zinc-500 shadow-sm dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-400">
           <p className="mb-2 font-semibold text-zinc-700 dark:text-zinc-200">Keyboard</p>
           <ul className="space-y-1">
             <li><kbd className="rounded bg-zinc-100 px-1 dark:bg-zinc-800">Tab</kbd> complete command</li>

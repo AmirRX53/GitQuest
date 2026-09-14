@@ -54,14 +54,15 @@ export function HomePage(): JSX.Element {
   return (
     <div className="space-y-16">
       {/* Hero */}
-      <section className="grid items-center gap-10 lg:grid-cols-2">
-        <div className="animate-fade-up">
-          <Badge className="mb-4">
+      <section className="relative grid items-center gap-10 lg:grid-cols-2">
+        <div aria-hidden className="pointer-events-none absolute -left-12 -top-10 hidden h-[420px] w-[420px] rounded-full bg-accent-500/10 blur-[70px] dark:bg-accent-500/15 lg:block" />
+        <div className="animate-fade-up relative">
+          <Badge className="mb-4 shadow-sm shadow-accent-500/10">
             <Icon name="graduation" className="h-3.5 w-3.5" /> Free, interactive, beginner-friendly
           </Badge>
           <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">
-            Learn <span className="text-accent-500">Git</span>, <span className="text-accent-500">Git Bash</span> &{' '}
-            <span className="text-accent-500">GitHub</span> by actually typing it.
+            Learn <span className="text-accent-500 glow-text">Git</span>, <span className="text-accent-500 glow-text">Git Bash</span> &{' '}
+            <span className="text-accent-500 glow-text">GitHub</span> by actually typing it.
           </h1>
           <p className="mt-4 max-w-xl text-lg text-zinc-600 dark:text-zinc-400">
             Four guided tracks, a safe terminal sandbox where nothing can break, and quizzes that stick.
@@ -82,7 +83,8 @@ export function HomePage(): JSX.Element {
             </LinkButton>
           </div>
         </div>
-        <div className="animate-fade-up" style={{ animationDelay: '120ms' }}>
+        <div className="animate-fade-up relative" style={{ animationDelay: '120ms' }}>
+          <div aria-hidden className="pointer-events-none absolute -inset-3 -z-10 rounded-[22px] bg-gradient-to-br from-accent-500/20 via-violet-500/10 to-transparent blur-xl opacity-60 dark:opacity-80" />
           <TerminalWindow title="git-bash — the quest begins">
             <div className="space-y-1.5">
               {typedLines.slice(0, visible).map((line, i) => (
@@ -135,8 +137,8 @@ export function HomePage(): JSX.Element {
             const p = trackProgress(track, progress)
             return (
               <Link key={track.id} to={`/track/${track.id}`} className="group">
-                <Card className="relative h-full overflow-hidden p-6 transition-all group-hover:-translate-y-0.5 group-hover:border-accent-400/60 group-hover:shadow-lg">
-                  <div className={cx('absolute inset-x-0 top-0 h-1 bg-gradient-to-r', trackAccents[track.color]?.bar ?? 'from-accent-500 to-accent-400')} />
+                <Card className="relative h-full overflow-hidden p-6 transition-all group-hover:-translate-y-0.5 group-hover:border-accent-400/60 group-hover:shadow-lg group-hover:shadow-accent-500/10">
+                  <div className={cx('absolute inset-x-0 top-0 h-1 bg-gradient-to-r shadow-sm', trackAccents[track.color]?.bar ?? 'from-accent-500 to-accent-400')} />
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex items-start gap-3">
                       <span className={cx('flex h-10 w-10 shrink-0 items-center justify-center rounded-xl', trackAccents[track.color]?.chip ?? 'bg-accent-500/10 text-accent-500')}>
@@ -172,8 +174,8 @@ export function HomePage(): JSX.Element {
             { icon: 'quiz' as const, title: 'Quizzes', text: 'Short checks per track — spot the bug, pick the right undo, order the GitHub Flow.', to: '/quizzes' },
           ].map((f) => (
             <Link key={f.title} to={f.to} className="group">
-              <Card className="h-full p-6 transition-all group-hover:border-accent-400/60 group-hover:shadow-lg">
-                <span className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-accent-500/10 text-accent-500">
+              <Card className="h-full p-6 transition-all group-hover:border-accent-400/60 group-hover:shadow-lg group-hover:shadow-accent-500/10">
+                <span className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-accent-500/10 text-accent-500 shadow-sm shadow-accent-500/10 group-hover:shadow-accent-500/20 group-hover:shadow-md transition-shadow">
                   <Icon name={f.icon} />
                 </span>
                 <h3 className="font-bold">{f.title}</h3>

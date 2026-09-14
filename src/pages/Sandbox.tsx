@@ -22,8 +22,9 @@ export function SandboxPage(): JSX.Element {
 
   return (
     <div>
-      <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-        <div>
+      <div className="relative mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <div aria-hidden className="pointer-events-none absolute -left-8 -top-6 hidden h-[280px] w-[420px] rounded-full bg-accent-500/10 blur-[50px] dark:bg-accent-500/15 sm:block" />
+        <div className="relative">
           <h1 className="text-3xl font-extrabold tracking-tight">Terminal sandbox</h1>
           <p className="mt-1 max-w-2xl text-sm text-zinc-500 dark:text-zinc-400">
             A simulated shell running a real implementation of the commands — completely isolated from your machine.
@@ -43,7 +44,7 @@ export function SandboxPage(): JSX.Element {
             const done = progress.milestones.includes(s.id)
             return (
               <Link key={s.id} to={`/sandbox/${s.id}`} className="block h-full">
-                <Card className="flex h-full flex-col p-5 transition-all hover:-translate-y-0.5 hover:border-accent-400/60 hover:shadow-md">
+                <Card className="flex h-full flex-col p-5 transition-all hover:-translate-y-0.5 hover:border-accent-400/60 hover:shadow-md hover:shadow-accent-500/10">
                   <div className="flex items-center gap-2">
                     <p className="font-semibold">{s.title}</p>
                     {done ? <Icon name="check" className="h-4 w-4 text-emerald-500" /> : null}

@@ -19,6 +19,9 @@
   --animate-pulse-soft: pulse-soft 2.2s ease-in-out infinite;
   --animate-page-in: page-in 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
   --animate-item-in: item-in 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+  --animate-glow-pulse: glow-pulse 3.2s ease-in-out infinite;
+  --animate-glow-drift: glow-drift 14s ease-in-out infinite alternate;
+  --animate-shimmer: shimmer 2.2s linear infinite;
 
   @keyframes page-in {
     from {
@@ -60,6 +63,36 @@
     }
     50% {
       opacity: 0.35;
+    }
+  }
+
+  @keyframes glow-pulse {
+    0%,
+    100% {
+      opacity: 0.55;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.85;
+      transform: scale(1.04);
+    }
+  }
+
+  @keyframes glow-drift {
+    0% {
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+    100% {
+      transform: translate3d(18px, -16px, 0) scale(1.08);
+    }
+  }
+
+  @keyframes shimmer {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
     }
   }
 }
@@ -104,5 +137,74 @@
 
   .dark ::-webkit-scrollbar-thumb {
     @apply bg-zinc-700;
+  }
+}
+
+@layer utilities {
+  .glow-card {
+    position: relative;
+  }
+  .glow-card::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.45), rgba(139, 92, 246, 0) 55%, rgba(167, 139, 250, 0.35));
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+  .glow-card:hover::before,
+  .glow-card:focus-within::before {
+    opacity: 1;
+  }
+
+  .glow-ring {
+    box-shadow:
+      0 0 0 1px rgba(139, 92, 246, 0.18),
+      0 8px 24px -12px rgba(124, 58, 237, 0.45),
+      0 0 22px rgba(139, 92, 246, 0.18);
+  }
+  .dark .glow-ring {
+    box-shadow:
+      0 0 0 1px rgba(139, 92, 246, 0.28),
+      0 12px 32px -14px rgba(124, 58, 237, 0.6),
+      0 0 28px rgba(139, 92, 246, 0.22);
+  }
+
+  .glow-text {
+    text-shadow: 0 0 18px rgba(139, 92, 246, 0.45);
+  }
+
+  .glow-orb {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(42px);
+    pointer-events: none;
+    will-change: transform, opacity;
+  }
+
+  .shimmer-bar {
+    position: relative;
+    overflow: hidden;
+  }
+  .shimmer-bar::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.42), transparent);
+    transform: translateX(-100%);
+    animation: shimmer 2.2s linear infinite;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .shimmer-bar::after {
+      display: none;
+    }
   }
 }

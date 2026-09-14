@@ -9,7 +9,8 @@ export function Badge({ children, className = '' }: { children: ReactNode; class
   return (
     <span
       className={cx(
-        'inline-flex items-center gap-1 rounded-full border border-zinc-300 px-2 py-0.5 text-xs font-medium text-zinc-700 light:border-zinc-300 light:bg-zinc-100 light:text-zinc-700 dark:border-zinc-700 dark:bg-zinc-800/60 dark:text-zinc-300',
+        'inline-flex items-center gap-1 rounded-full border border-zinc-300 px-2 py-0.5 text-xs font-medium text-zinc-700 shadow-sm shadow-accent-500/0 transition-shadow light:border-zinc-300 light:bg-zinc-100 light:text-zinc-700 dark:border-zinc-700 dark:bg-zinc-800/60 dark:text-zinc-300',
+        'hover:shadow-accent-500/10 hover:shadow-md',
         className,
       )}
     >
@@ -22,7 +23,8 @@ export function Card({ children, className = '' }: { children: ReactNode; classN
   return (
     <div
       className={cx(
-        'rounded-2xl border border-zinc-200 bg-white shadow-sm light:border-zinc-200 dark:border-zinc-800 dark:bg-zinc-900',
+        'glow-card rounded-2xl border border-zinc-200 bg-white shadow-sm transition-all light:border-zinc-200 dark:border-zinc-800 dark:bg-zinc-900',
+        'hover:shadow-lg hover:shadow-accent-500/10 dark:hover:shadow-accent-500/10 dark:hover:border-zinc-700',
         className,
       )}
     >
@@ -32,16 +34,16 @@ export function Card({ children, className = '' }: { children: ReactNode; classN
 }
 
 const calloutStyles: Record<CalloutKind, { icon: IconName; classes: string; label: string }> = {
-  tip: { icon: 'lightbulb', classes: 'border-emerald-500/30 bg-emerald-500/5 text-emerald-900 dark:text-emerald-200', label: 'Tip' },
-  warning: { icon: 'warning', classes: 'border-amber-500/30 bg-amber-500/5 text-amber-900 dark:text-amber-200', label: 'Warning' },
-  'best-practice': { icon: 'award', classes: 'border-violet-500/30 bg-violet-500/5 text-violet-900 dark:text-violet-200', label: 'Best practice' },
-  info: { icon: 'info', classes: 'border-blue-500/30 bg-blue-500/5 text-blue-900 dark:text-blue-200', label: 'Good to know' },
+  tip: { icon: 'lightbulb', classes: 'border-emerald-500/30 bg-emerald-500/5 text-emerald-900 shadow-emerald-500/10 dark:text-emerald-200', label: 'Tip' },
+  warning: { icon: 'warning', classes: 'border-amber-500/30 bg-amber-500/5 text-amber-900 shadow-amber-500/10 dark:text-amber-200', label: 'Warning' },
+  'best-practice': { icon: 'award', classes: 'border-violet-500/30 bg-violet-500/5 text-violet-900 shadow-violet-500/10 dark:text-violet-200', label: 'Best practice' },
+  info: { icon: 'info', classes: 'border-blue-500/30 bg-blue-500/5 text-blue-900 shadow-blue-500/10 dark:text-blue-200', label: 'Good to know' },
 }
 
 export function Callout({ kind, title, body }: { kind: CalloutKind; title: string; body: string }): JSX.Element {
   const style = calloutStyles[kind]
   return (
-    <aside className={cx('flex gap-3 rounded-xl border p-4', style.classes)}>
+    <aside className={cx('flex gap-3 rounded-xl border p-4 shadow-sm', style.classes)}>
       <Icon name={style.icon} className="mt-0.5 h-5 w-5 shrink-0" />
       <div>
         <p className="text-sm font-semibold">{title ?? style.label}</p>
@@ -55,7 +57,10 @@ export function ProgressBar({ value, className = '', fillClassName = 'from-accen
   const pct = Math.round(Math.min(1, Math.max(0, value)) * 100)
   return (
     <div className={cx('h-2 w-full overflow-hidden rounded-full bg-zinc-200 dark:bg-zinc-800', className)} role="progressbar" aria-valuenow={pct} aria-valuemin={0} aria-valuemax={100}>
-      <div className={cx('h-full rounded-full bg-gradient-to-r transition-all duration-500', fillClassName)} style={{ width: `${pct}%` }} />
+      <div
+        className={cx('shimmer-bar h-full rounded-full bg-gradient-to-r shadow-sm shadow-accent-500/25 transition-all duration-500', fillClassName)}
+        style={{ width: `${pct}%` }}
+      />
     </div>
   )
 }
@@ -66,7 +71,7 @@ export function ProgressRing({ value, size = 56, stroke = 5, label }: { value: n
   const c = 2 * Math.PI * r
   return (
     <div className="relative inline-flex items-center justify-center" style={{ width: size, height: size }}>
-      <svg width={size} height={size} className="-rotate-90">
+      <svg width={size} height={size} className="-rotate-90 drop-shadow-[0_0_10px_rgba(139,92,246,0.22)]">
         <circle cx={size / 2} cy={size / 2} r={r} strokeWidth={stroke} className="stroke-zinc-200 dark:stroke-zinc-800" fill="none" />
         <circle
           cx={size / 2}
@@ -98,9 +103,9 @@ export function LinkButton({ to, children, variant = 'primary', className = '' }
       to={to}
       className={cx(
         'inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold transition-all',
-        variant === 'primary' && 'bg-accent-600 text-white shadow-lg shadow-accent-600/25 hover:bg-accent-500',
+        variant === 'primary' && 'bg-accent-600 text-white shadow-lg shadow-accent-600/25 hover:bg-accent-500 hover:shadow-accent-600/30 hover:shadow-xl',
         variant === 'secondary' &&
-          'border border-zinc-300 text-zinc-800 hover:border-accent-400 hover:text-accent-700 light:border-zinc-300 dark:border-zinc-700 dark:text-zinc-200 dark:hover:border-accent-400 dark:hover:text-accent-300',
+          'border border-zinc-300 text-zinc-800 hover:border-accent-400 hover:text-accent-700 hover:shadow-md hover:shadow-accent-500/10 light:border-zinc-300 dark:border-zinc-700 dark:text-zinc-200 dark:hover:border-accent-400 dark:hover:text-accent-300 dark:hover:shadow-accent-500/10',
         variant === 'ghost' && 'text-zinc-600 hover:text-accent-600 dark:text-zinc-400 dark:hover:text-accent-300',
         className,
       )}
