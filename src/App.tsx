@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom'
 import type { JSX } from 'react'
 import { Layout } from './components/layout/Layout'
@@ -12,6 +13,9 @@ import { GlossaryPage, NotFoundPage, ResourcesPage } from './pages/Reference'
 /** Re-mounts page content on every route change so the enter animation plays. */
 function AnimatedRoutes(): JSX.Element {
   const location = useLocation()
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [location.pathname])
   return (
     <div key={location.pathname} className="animate-page-in">
       <Routes location={location}>
