@@ -21,7 +21,7 @@ export function Stagger({ children, step = 60, maxDelay = 480, className = '' }:
       {items.map((child, i) => (
         <div
           key={i}
-          className="animate-item-in"
+          className="animate-item-in h-full"
           style={{ animationDelay: `${Math.min(i * step, maxDelay)}ms` } as CSSProperties}
         >
           {child}

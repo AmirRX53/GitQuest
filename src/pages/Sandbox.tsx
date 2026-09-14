@@ -38,17 +38,17 @@ export function SandboxPage(): JSX.Element {
       </div>
 
       {!scenario ? (
-        <Stagger className="mb-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3" step={55} maxDelay={440}>
+        <Stagger className="mb-8 grid auto-rows-fr gap-3 sm:grid-cols-2 lg:grid-cols-3" step={55} maxDelay={440}>
           {scenarios.map((s) => {
             const done = progress.milestones.includes(s.id)
             return (
-              <Link key={s.id} to={`/sandbox/${s.id}`} className="block">
-                <Card className="h-full p-5 transition-all hover:-translate-y-0.5 hover:border-accent-400/60 hover:shadow-md">
+              <Link key={s.id} to={`/sandbox/${s.id}`} className="block h-full">
+                <Card className="flex h-full flex-col p-5 transition-all hover:-translate-y-0.5 hover:border-accent-400/60 hover:shadow-md">
                   <div className="flex items-center gap-2">
                     <p className="font-semibold">{s.title}</p>
                     {done ? <Icon name="check" className="h-4 w-4 text-emerald-500" /> : null}
                   </div>
-                  <p className="mt-1 text-xs font-normal text-zinc-500 dark:text-zinc-400">{s.summary}</p>
+                  <p className="mt-1 flex-1 text-xs font-normal text-zinc-500 dark:text-zinc-400">{s.summary}</p>
                   <div className="mt-2 flex items-center gap-2">
                     <span className={cx('rounded-full border px-2 py-0.5 text-[11px] font-medium', difficultyColor[s.difficulty])}>{s.difficulty}</span>
                     <span className="text-[11px] text-zinc-400">{s.minutes} min</span>
